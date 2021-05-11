@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:wisata_app/detail_screen.dart';
 import 'package:wisata_app/listview_coba.dart';
+import 'package:wisata_app/first_second_screen_nav.dart';
 
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Oswald',
       ),
-      home: ScrollingScreen(),
+      home: FirstScreenOut(),
     );
   }
 }
