@@ -6,10 +6,10 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
-  String language;
+  String? language;
   String _name = '';
   bool lightOn = false;
-  bool agree = false;
+  var agree = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class _FirstScreenState extends State<FirstScreen> {
                 ],
                 value: language,
                 hint: Text('Select Language'),
-                onChanged: (String value) {
+                onChanged: (String? value) {
                   setState(() {
                     language = value;
                   });
@@ -76,7 +76,7 @@ class _FirstScreenState extends State<FirstScreen> {
                 leading: Radio<String>(
                   value: 'Dart',
                   groupValue: language,
-                  onChanged: (String value) {
+                  onChanged: (String? value) {
                     setState(() {
                       language = value;
                       showSnackBar();
@@ -89,7 +89,7 @@ class _FirstScreenState extends State<FirstScreen> {
                 leading: Radio<String>(
                   value: 'Flutter',
                   groupValue: language,
-                  onChanged: (String value) {
+                  onChanged: (String? value) {
                     setState(() {
                       language = value;
                       showSnackBar();
@@ -101,9 +101,9 @@ class _FirstScreenState extends State<FirstScreen> {
               ListTile(
                 leading: Checkbox(
                   value: agree,
-                  onChanged: (bool value) {
+                  onChanged: (value) {
                     setState(() {
-                      agree = value;
+                      agree = !agree;
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content:
                             Text(agree ? 'you are agreeing' : 'please agree'),

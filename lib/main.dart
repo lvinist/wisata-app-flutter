@@ -1,4 +1,4 @@
-import 'package:wisata_app/media_query_page.dart';
+import 'package:wisata_app/mainscreen.dart';
 
 import 'package:flutter/material.dart';
 
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Oswald',
       ),
-      home: ResponsivePage(),
+      home: MainScreen(),
     );
   }
 }

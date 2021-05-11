@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:wisata_app/model/tourism_place.dart';
 
 class DetailScreen extends StatelessWidget {
   final informationTextStyle = TextStyle(fontFamily: 'Oxygen');
+  final TourismPlace place;
+
+  DetailScreen({required this.place});
 
   @override
   Widget build(BuildContext context) {
@@ -11,11 +15,34 @@ class DetailScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Image.asset('images/farm-house.jpg'),
+            Stack(
+              children: [
+                Image.asset(place.imageAsset),
+                SafeArea(
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: Colors.white,
+                          child: IconButton(
+                              icon: Icon(Icons.arrow_back),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              }),
+                        ),
+                        FavoriteButton()
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
             Container(
               margin: EdgeInsets.only(top: 16),
               child: Text(
-                'Lembang Farm House',
+                place.name,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
@@ -30,7 +57,7 @@ class DetailScreen extends StatelessWidget {
                         Icon(Icons.calendar_today),
                         SizedBox(height: 8),
                         Text(
-                          'Open Everyday',
+                          place.openDays,
                           style: informationTextStyle,
                         ),
                       ],
@@ -40,7 +67,7 @@ class DetailScreen extends StatelessWidget {
                         Icon(Icons.access_time),
                         SizedBox(height: 8),
                         Text(
-                          '09.00 - 20.00',
+                          place.openTime,
                           style: informationTextStyle,
                         )
                       ],
@@ -50,7 +77,7 @@ class DetailScreen extends StatelessWidget {
                         Icon(Icons.money),
                         SizedBox(height: 8),
                         Text(
-                          'RP 25.000',
+                          place.ticketPrice,
                           style: informationTextStyle,
                         ),
                       ],
@@ -60,7 +87,7 @@ class DetailScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(16),
               child: Text(
-                'Berada di jalur utama Bandung-Lembang, Farm House menjadi objek wisata yang tidak pernah sepi pengunjung. Selain karena letaknya strategis, kawasan ini juga menghadirkan nuansa wisata khas Eropa. Semua itu diterapkan dalam bentuk spot swafoto Instagramable.',
+                place.description,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 14),
               ),
@@ -68,35 +95,42 @@ class DetailScreen extends StatelessWidget {
             Container(
               height: 150,
               child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  Padding(
-                      padding: EdgeInsets.all(4),
+                  scrollDirection: Axis.horizontal,
+                  children: place.imageUrls.map((url) {
+                    return Padding(
+                      padding: EdgeInsets.all(8),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                            'https://media-cdn.tripadvisor.com/media/photo-s/0d/7c/59/70/farmhouse-lembang.jpg'),
-                      )),
-                  Padding(
-                      padding: EdgeInsets.all(4),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                            'https://media-cdn.tripadvisor.com/media/photo-w/13/f0/22/f6/photo3jpg.jpg'),
-                      )),
-                  Padding(
-                      padding: EdgeInsets.all(4),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                            'https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg'),
-                      )),
-                ],
-              ),
+                        child: Image.network(url),
+                      ),
+                    );
+                  }).toList()),
             )
           ],
         ),
       )),
     );
+  }
+}
+
+class FavoriteButton extends StatefulWidget {
+  @override
+  _FavoriteButtonState createState() => _FavoriteButtonState();
+}
+
+class _FavoriteButtonState extends State<FavoriteButton> {
+  bool isFavorite = false;
+
+  Widget build(BuildContext context) {
+    return IconButton(
+        icon: Icon(
+          isFavorite ? Icons.favorite : Icons.favorite_border,
+          color: Colors.red,
+        ),
+        onPressed: () {
+          setState(() {
+            isFavorite = !isFavorite;
+          });
+        });
   }
 }
