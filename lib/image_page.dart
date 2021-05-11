@@ -6,9 +6,10 @@ class ImageScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
             icon: Icon(
-          Icons.menu,
-          color: Colors.white,
-        )),
+              Icons.menu,
+              color: Colors.white,
+            ),
+            onPressed: () {}),
         title: Text('Image Screen'),
       ),
       body: Center(
